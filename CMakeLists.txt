@@ -7,4 +7,5 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 # Add sub directories
 add_subdirectory(C++)
 add_subdirectory(STL)
+add_subdirectory(searchalgorithm)
 #add_subdirectory(C)
