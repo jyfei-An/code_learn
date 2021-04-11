@@ -69,6 +69,23 @@ void Test3()
 	cout << a.m_r << ' ' << a.m_c << endl;
 }
 
+class Dummy {
+public:
+	//成员变量的初始化顺序由声明顺序决定，而与初始化表的顺序无关.
+	Dummy(const char* psz) :
+		m_str(psz ? psz : ""),
+		m_len(strlen(psz ? psz : "")) {}
+	size_t m_len;
+	string m_str;
+};
+
+void Test4()
+{
+	//Dummy d("abcdefg");
+	Dummy d(NULL);
+	cout << d.m_str << ',' << d.m_len << endl;
+}
+
 int main(int argc, char *argv[])
 {
 	//初始化表测试
@@ -76,6 +93,8 @@ int main(int argc, char *argv[])
 	//初始化表测试
 	//Test2();
 	//必须使用初始化表测试
-	Test3();
+	//Test3();
+	//初始化表测试
+	Test4();
     return 0;
 }
