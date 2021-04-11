@@ -52,7 +52,8 @@ private:
 					{
 						std::unique_lock<std::mutex> lock(m_mutex);
 
-						//wait？？？？？
+						//wait,只有m_stopping为真(表示线程停止)或者任务队列非空时（有任务可以执行），继续往下执行
+						//m_conditionvariable.wait(lock);直接写成这样，有可能导致虚假唤醒发生，尽量避免
 						m_conditionvariable.wait(lock, [=] {return m_stopping || !m_tasks.empty(); });
 
 						if (m_stopping || m_tasks.empty())
