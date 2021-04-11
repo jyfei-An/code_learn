@@ -87,6 +87,40 @@ void Test4()
 	printStudent(s1);
 }
 
+struct A {
+	int data;
+	/*const*/ int& foo(void) {
+		return data;
+	}
+	int& bar(void) {
+		int data = 200;
+		cout << "&data:" << &data << endl;
+		//返回局部变量的引用，危险！
+		//函数调用结束以后，内存已经被释放，可能
+		//被其它变量所使用，结果异常
+		return data;
+	}
+	int& hum(void) {
+		int data = 300;
+		cout << "&data:" << &data << endl;
+		return data;
+	}
+};
+
+void Test5()
+{
+	A a = { 0 };
+	//a.foo() = 100;//a.data = 100
+	//cout << a.data << endl;//100
+
+	int& data = a.bar();
+	cout << data << endl;//200
+
+	a.hum();
+
+	cout << data << endl;//300
+}
+
 int main(int argc, char *argv[])
 {
 	//引用测试
@@ -96,6 +130,8 @@ int main(int argc, char *argv[])
 	//函数参数引用测试
 	//Test3();
 	//函数参数为常引用
-	Test4();
+	//Test4();
+	//函数返回值为引用
+	Test5();
     return 0;
 }
